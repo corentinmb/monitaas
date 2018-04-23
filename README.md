@@ -1,3 +1,5 @@
+Stack based on the [official Stack by Elastic.](https://github.com/elastic/examples/tree/master/Miscellaneous/docker/full_stack_example#dashboards-with-data)
+
 ## Pre-requisites
 
 1. Docker for Mac, Linux or OSX

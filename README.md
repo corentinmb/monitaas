@@ -1,4 +1,4 @@
-Stack based on the [official Stack by Elastic.](https://github.com/elastic/examples/tree/master/Miscellaneous/docker/full_stack_example#dashboards-with-data)
+Stack based on the [official Stack by Elastic.](https://github.com/elastic/examples/tree/master/Miscellaneous/docker/full_stack_example)
 
 ## Pre-requisites
 

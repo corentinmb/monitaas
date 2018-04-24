@@ -82,9 +82,9 @@ The following Beats modules are utilised in this stack example to provide data a
 
 ## Running the stack
 
-    ```shell
-    docker-compose -f docker-compose-linux.yml up
-    ```
+```shell
+docker-compose -f docker-compose-linux.yml up
+```
 
 ## Generating data
 

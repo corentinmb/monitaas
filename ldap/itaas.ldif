@@ -1,0 +1,36 @@
+## DEFINE DIT ROOT/BASE/SUFFIX ####
+## uses RFC 2377 format
+## ItaaS - Atos - Fichier LDIF Import LDAP
+
+dn: dc=itaas,dc=atos
+dc: itaas
+description: Organisation hierarchique du projet ItaaS
+objectClass: dcObject
+objectClass: organization
+o: ItaaS
+
+dn: ou=utilisateurs,dc=itaas,dc=atos
+ou: utilisateurs
+description: Tous les utilisateurs itaas
+objectclass: organizationalunit
+
+dn: cn=Corentin Moreau,ou=utilisateurs,dc=itaas,dc=atos
+objectclass: inetOrgPerson
+cn: Corentin Moreau
+sn: CMU
+uid: A647026
+mail: corentin.moreau@atos.net
+
+dn: cn=Eric Baboulene,ou=utilisateurs,dc=itaas,dc=atos
+objectclass: inetOrgPerson
+cn: Eric Baboulene
+sn: EBE
+uid: DASERIC
+mail: eric.baboulene@atos.net
+
+dn: cn=Murielle Augieras,ou=utilisateurs,dc=itaas,dc=atos
+objectclass: inetOrgPerson
+cn: Murielle Augieras
+sn: MAS
+uid: DASMURIELLE
+mail: murielle.augieras@atos.net

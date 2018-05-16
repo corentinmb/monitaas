@@ -30,6 +30,16 @@ services:
     depends_on:
       - elasticsearch
     restart: always
+    
+  logspout:
+     container_name: logspout
+     build:
+       context: logspout/
+     restart: always
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+     environment:
+       - ROUTE_URIS=logstash+tcp://localhost:5001
 
   kibana:
     build:

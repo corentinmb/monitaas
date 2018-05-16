@@ -7,7 +7,6 @@ services:
       context: elasticsearch/
     container_name: elasticsearch
     volumes:
-      - esdata:/usr/share/elasticsearch/data
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
     ports:
       - "9200:9200"
@@ -23,7 +22,6 @@ services:
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
-      - mysqllog:/xlogs/mysqllog:ro
     ports:
       - "5000:5000"
     environment:
@@ -56,7 +54,6 @@ services:
       - /:/hostfs:ro
       - ./metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
       - ./metricbeat/modules.d:/usr/share/metricbeat/modules.d:ro
-      -  /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
     user: "root"
     network_mode: host
     depends_on:
@@ -71,21 +68,11 @@ services:
       context: mariadb/
     container_name: mysql
     volumes:
-      - mysqldata:/var/lib/mysql
       - ./mariadb/conf.d:/etc/mysql/conf.d:ro
       - ./mariadb/my.cnf:/etc/mysql/my.cnf:ro
       -  /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
-      - mysqllog:/var/log/mysql
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
     restart: always
-
-volumes:
-  esdata:
-    driver: local
-  mysqldata:
-    driver: local
-  mysqllog:
-    driver: local

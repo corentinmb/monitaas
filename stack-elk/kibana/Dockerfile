@@ -1,9 +1,5 @@
-FROM docker.elastic.co/kibana/kibana-oss:6.2.2
+# https://github.com/elastic/kibana-docker
+FROM docker.elastic.co/kibana/kibana-oss:6.2.3
 
-COPY ./config/kibana.yml /usr/share/kibana/config/kibana.yml
-
-USER root
-
-RUN echo "Europe/Paris" > /etc/timezone
-
-USER kibana
+# Add your kibana plugins setup here
+# Example: RUN kibana-plugin install <name|url>

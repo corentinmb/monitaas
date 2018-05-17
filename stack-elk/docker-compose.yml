@@ -1,4 +1,4 @@
-version: '3.2'
+version: '2'
 
 services:
 
@@ -13,8 +13,8 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      LOGSPOUT: ignore
-    restart: always
+    networks:
+      - elk
 
   logstash:
     build:
@@ -27,40 +27,43 @@ services:
       - "5000:5000"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-      LOGSPOUT: ignore
+    networks:
+      - elk
     depends_on:
       - elasticsearch
 
-  logspout:
-    image: 'gliderlabs/logspout'
-    container_name: logspout
-    entrypoint: '/bin/sh'
-    command: '-c "/bin/logspout syslog://logstash:5000"'
-    volumes:
-      - '/var/run/docker.sock:/tmp/docker.sock'
-    depends_on:
-      - logstash
-    
   kibana:
     build:
       context: kibana/
     container_name: kibana
-    environment:
-      LOGSPOUT: ignore
     volumes:
       - ./kibana/config/:/usr/share/kibana/config:ro
     ports:
       - "5601:5601"
+    networks:
+      - elk
     depends_on:
       - elasticsearch
-    restart: always
-
+      
+  logspout:
+    build:
+      context: extensions/logspout
+    container_name: logspout
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      ROUTE_URIS: logstash://logstash:5000
+      LOGSTASH_TAGS: docker-elk
+    networks:
+      - elk
+    depends_on:
+      - logstash
+    restart: on-failure
+      
   metricbeat:
     build:
       context: metricbeat/
     container_name: metricbeat
-    environment:
-      LOGSPOUT: ignore
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc:/hostfs/proc:ro
@@ -76,17 +79,8 @@ services:
       - logstash
     command: -system.hostfs=/hostfs -e
     restart: always
-    
-  mysql:
-    build:
-      context: mariadb/
-    container_name: mysql
-    volumes:
-      - ./mariadb/conf.d:/etc/mysql/conf.d:ro
-      - ./mariadb/my.cnf:/etc/mysql/my.cnf:ro
-      -  /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    restart: always
+
+networks:
+
+  elk:
+    driver: bridge

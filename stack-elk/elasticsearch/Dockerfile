@@ -1,5 +1,5 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
+# https://github.com/elastic/elasticsearch-docker
+FROM docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
 
-COPY ./config/elasticsearch.yml /usr/share/elasticsearch/conifg/elasticsearch.yml
-
-RUN echo "Europe/Paris" > /etc/timezone
+# Add your elasticsearch plugins setup here
+# Example: RUN elasticsearch-plugin install analysis-icu

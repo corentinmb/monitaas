@@ -26,21 +26,19 @@ services:
       - "5000:5000"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    user: "root"
     depends_on:
       - elasticsearch
-    restart: always
-    
-  logspout:
-     container_name: logspout
-     build:
-       context: logspout/
-     restart: always
-     volumes:
-       - /var/run/docker.sock:/var/run/docker.sock
-     environment:
-       - ROUTE_URIS=logstash+tcp://localhost:5001
 
+  logspout:
+    image: 'gliderlabs/logspout'
+    container_name: logspout
+    entrypoint: '/bin/sh'
+    command: '-c "/bin/logspout syslog://logstash:5000"'
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock'
+    depends_on:
+      - logstash
+    
   kibana:
     build:
       context: kibana/

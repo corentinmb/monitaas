@@ -1,4 +1,4 @@
-version: '2'
+version: '3.2'
 
 services:
 
@@ -13,6 +13,7 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LOGSPOUT: ignore
     restart: always
 
   logstash:
@@ -26,6 +27,7 @@ services:
       - "5000:5000"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LOGSPOUT: ignore
     depends_on:
       - elasticsearch
 
@@ -43,6 +45,8 @@ services:
     build:
       context: kibana/
     container_name: kibana
+    environment:
+      LOGSPOUT: ignore
     volumes:
       - ./kibana/config/:/usr/share/kibana/config:ro
     ports:
@@ -55,6 +59,8 @@ services:
     build:
       context: metricbeat/
     container_name: metricbeat
+    environment:
+      LOGSPOUT: ignore
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc:/hostfs/proc:ro

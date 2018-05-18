@@ -3,6 +3,9 @@
 # unmodified from:
 # https://github.com/gliderlabs/logspout/blob/67ee3831cbd0594361bb3381380c65bdbeb3c20f/custom/build.sh
 
+export http_proxy=http://193.56.47.8:8080
+export https_proxy=http://193.56.47.8:8080
+
 set -e
 apk add --update go git mercurial build-base
 mkdir -p /go/src/github.com/gliderlabs

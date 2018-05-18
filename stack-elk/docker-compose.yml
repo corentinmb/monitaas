@@ -79,6 +79,19 @@ services:
       - logstash
     command: -system.hostfs=/hostfs -e
     restart: always
+    
+  mariadb:
+    image: mariadb
+    networks:
+      - elk
+    container_name: mariadb
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - ./logs/mysql:/var/log/mysql/
 
 networks:
 

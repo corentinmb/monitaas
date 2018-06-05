@@ -5,7 +5,7 @@ global:
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
   external_labels:
-      monitor: 'docker-host-alpha'
+      monitor: 'monitoring-stack-local'
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
@@ -16,12 +16,12 @@ scrape_configs:
   - job_name: 'master'
     scrape_interval: 5s
     static_configs:
-      - targets: ['nodeexporter:9100','cadvisor:8080','localhost:9090','pushgateway:9091']
+      - targets: ['nodeexporter:9100','cadvisor:8081','localhost:9090','pushgateway:9091']
   
   - job_name: 'node1'
     scrape_interval: 5s
     static_configs:
-      - targets: ['192.168.56.102:9100','192.168.56.102:8080']
+      - targets: ['192.168.56.102:9100','192.168.56.102:8081']
 
 alerting:
   alertmanagers:

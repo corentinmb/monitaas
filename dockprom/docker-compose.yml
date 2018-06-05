@@ -79,7 +79,7 @@ services:
       #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
     restart: unless-stopped
     expose:
-      - 8080
+      - 8081
     networks:
       - monitor-net
     labels:

@@ -5,7 +5,7 @@ global:
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
   external_labels:
-      monitor: 'docker-host-alpha'
+      monitor: 'monitoring-stack'
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
@@ -16,27 +16,27 @@ scrape_configs:
   - job_name: 'messi-itaas-os2'
     scrape_interval: 5s
     static_configs:
-      - targets: ['nodeexporter:9100','cadvisor:8080','localhost:9090','pushgateway:9091']
+      - targets: ['nodeexporter:9100','cadvisor:8081','localhost:9090','pushgateway:9091']
   
   - job_name: 'messi-itaas-bdd'
     scrape_interval: 5s
     static_configs:
-      - targets: ['10.89.156.133:9100','10.89.156.133:8080']
+      - targets: ['10.89.156.133:9100','10.89.156.133:8081']
 
-        - job_name: 'messi-itaas-pic'
+  - job_name: 'messi-itaas-pic'
     scrape_interval: 5s
     static_configs:
-      - targets: ['10.89.156.134:9100','10.89.156.134:8080']
+      - targets: ['10.89.156.134:9100','10.89.156.134:8081']
       
-        - job_name: 'messi-itaas-tec'
+  - job_name: 'messi-itaas-tec'
     scrape_interval: 5s
     static_configs:
-      - targets: ['10.89.157.237:9100','10.89.157.237:8080']
+      - targets: ['10.89.157.237:9100','10.89.157.237:8081']
       
-        - job_name: 'messi-itaas-os1'
+  - job_name: 'messi-itaas-os1'
     scrape_interval: 5s
     static_configs:
-      - targets: ['10.89.156.131:9100','10.89.156.131:8080']
+      - targets: ['10.89.156.131:9100','10.89.156.131:8081']
 
 alerting:
   alertmanagers:

@@ -32,7 +32,7 @@ services:
       - /cgroup:/cgroup:ro
     restart: unless-stopped
     ports:
-      - 8081:8080
+      - 8080:8080
     labels:
       org.label-schema.group: "monitoring"
   
